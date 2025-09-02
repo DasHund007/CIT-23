@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Page</title>
+</head>
+<body>
+    <h1>Saved Values</h1>
+    <ul id="list"></ul>
+
+    <script>
+      fetch("/list")
+        .then(r => r.json())
+        .then(data => {
+          const ul = document.getElementById("list")
+          data.forEach(row => {
+            const li = document.createElement("li")
+            li.textContent = row.value
+            ul.appendChild(li)
+          })
+        })
+    </script>
+</body>
+</html>
