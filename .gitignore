@@ -9,5 +9,5 @@ node_modules/
 .log
 
 # MS Office
-~$*
+~*
 .tmp
