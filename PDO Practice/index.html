@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>AJAX Demo</title>
+</head>
+<body>
+    <input type="text" id="messageInput" placeholder="Write something...">
+    <button id="sendBtn">Send</button>
+    <div id="messages"></div>
+
+<script>
+async function loadMessages() {
+    const res = await fetch('ajax.php?action=list')
+    const data = await res.json()
+    const container = document.getElementById('messages')
+    container.innerHTML = ''
+    data.forEach(item => {
+        const div = document.createElement('div')
+        div.textContent = `id: ${item.id} | content: ${item.content}`
+        container.appendChild(div)
+    })
+}
+
+async function addMessage() {
+    const input = document.getElementById('messageInput')
+    const value = input.value.trim()
+    if (!value) return
+    await fetch('ajax.php?action=add', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({content: value})
+    })
+    input.value = ''
+    loadMessages()
+}
+
+document.getElementById('sendBtn').addEventListener('click', addMessage)
+window.addEventListener('load', loadMessages)
+</script>
+</body>
+</html>
