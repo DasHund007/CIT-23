@@ -4,28 +4,26 @@ class User {
     private $password;
     protected $id;
 
-    protected static $allUsers = [];
+    private const SCHULE = "TEB";
 
     public function __construct($name,$pw,$id){
         $this->username = $name;
         $this->password = $pw;
         $this->id = $id;
-
-        self::$allUsers[] = $this;
     }
 
     public function getId(){
         return $this->id;
     }
 
-    public static function getAllUsers(){
-        return self::$allUsers;
+    public static function schule(){
+        return self::SCHULE;
     }
 }
 
 class Lehrer extends User {
     public function unterrichten(){
-        return "blablabla";
+        return "lehrer id: ".$this->id." unterricht: blablabla";
     }
 }
 
@@ -52,8 +50,4 @@ echo $chef->unterrichten() . "<br>";
 echo $schulze->unterrichten() . "<br>";
 echo "chef id: " . $chef->getId() . "<br>" . "<br>";
 
-echo "USERS:"."<br>";
-
-foreach (User::getAllUsers() as $users) {
-    echo "User ID: " . $users->getId() . "<br>";
-}
+echo User::schule();
